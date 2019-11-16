@@ -2,7 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-
+    signingConfigs {
+        config {
+            keyAlias 'secure'
+            keyPassword 'secureapp'
+            storeFile file('C:/Users/Serar/Documents/keys/keystore')
+            storePassword 'secureapp'
+        }
+    }
     defaultConfig {
         applicationId "com.matloob.secureapp"
         minSdkVersion 21
@@ -16,14 +23,29 @@ android {
             versionNameSuffix '-debug_dev'
             buildConfigField 'String', 'SECURE_API_URL', '"http://192.168.50.231:3000"'
             debuggable true
+            signingConfig signingConfigs.config
+        }
+        debug_stage {
+            versionNameSuffix '-debug_stage'
+            buildConfigField 'String', 'SECURE_API_URL', '"https://safetynet-secure.appspot.com"'
+            debuggable true
             signingConfig signingConfigs.debug
+        }
+        debug_stage_signed {
+            versionNameSuffix '-debug_stage_signed'
+            buildConfigField 'String', 'SECURE_API_URL', '"https://safetynet-secure.appspot.com"'
+            debuggable true
+            signingConfig signingConfigs.config
         }
         release {
             versionNameSuffix '-release'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'SECURE_API_URL', 'http://192.168.50.231:3000'
+            buildConfigField 'String', 'SECURE_API_URL', '"https://safetynet-secure.appspot.com"'
         }
+    }
+    defaultConfig {
+        buildConfigField("String", "API_KEY", "\"${safetynet_api_key}\"")
     }
 }
 
@@ -35,6 +57,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    //safetynet
+    implementation 'com.google.android.gms:play-services-safetynet:17.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
