@@ -10,6 +10,9 @@ public class ComputeRequestBody {
     @SerializedName("safety")
     @Expose
     private String safety;
+    @SerializedName("googleAndroidId")
+    @Expose
+    private String googleAndroidId;
     @SerializedName("num1")
     @Expose
     private int num1;
@@ -23,8 +26,9 @@ public class ComputeRequestBody {
      * @param num1 a {@link Integer} of first number
      * @param num2 a {@link Integer} of second number
      */
-    public ComputeRequestBody(String safety, int num1, int num2) {
+    public ComputeRequestBody(String safety, String googleAndroidId, int num1, int num2) {
         this.safety = safety;
+        this.googleAndroidId = googleAndroidId;
         this.num1 = num1;
         this.num2 = num2;
     }

@@ -1,6 +1,8 @@
 package com.matloob.secureapp.api;
 
+import com.matloob.secureapp.models.AndroidIdRequestBody;
 import com.matloob.secureapp.models.ComputeRequestBody;
+import com.matloob.secureapp.models.NonceModel;
 import com.matloob.secureapp.models.ResultModel;
 
 import retrofit2.Call;
@@ -11,4 +13,7 @@ public interface SecureApiEndpoint {
     // Request method and URL specified in the annotation
     @POST("compute")
     Call<ResultModel> postComputeRequest(@Body ComputeRequestBody num);
+
+    @POST("nonce")
+    Call<NonceModel> postNonceRequest(@Body AndroidIdRequestBody androidId);
 }
